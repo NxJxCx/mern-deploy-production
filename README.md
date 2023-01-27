@@ -7,9 +7,9 @@
 > JavaScript library for developing UIs based on UI components (Frontend Development Framework)
 > ### NodeJS
 > JavaScript runtime environment (It enables running Javascript code outside the browser)
-> ```
-The main purpose of using MERN stack is to develop apps using JavaScript only
-```
+
+### The main purpose of using MERN stack is to develop apps using JavaScript only
+
 ### Files to Add/Modify/Edit:
 **Front-End (client_view)**
 - `client_view/public/index.html` - You can add/remove/modify tags inside head tag for css or js or any css/js bootstrap

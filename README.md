@@ -1,13 +1,13 @@
 # MERN Project
-> ### MongoDB - database
-> ### Express - API Server
-> ### Reactjs - Front-end
-> ### Node.js - Web Framework (Back-end)
+> ### MongoDB - NoSQL Database Management System
+> ### ExpressJS - Backend Web Application Framework for NodeJS (API Server)
+> ### ReactJS - JavaScript library for developing UIs based on UI components (Frontend Development Framework)
+> ### NodeJS - JavaScript runtime environment (It enables running Javascript code outside the browser)
 
 ### Files to Add/Modify/Edit:
 **Front-End (client_view)**
 - `client_view/public/index.html` - You can add/remove/modify tags inside head tag for css or js or any css/js bootstrap
--  `client_view/public/**` - You can add or modify `css` and `js` and/or `assets` folders for local resources
+- `client_view/public/**` - You can add or modify `css` and `js` and/or `assets` folders for local resources
 - `client_view/src/App.js` - Add or modify `<Route />` tag inside this file for front-end routes
 - `client_view/src/App.css` - Modify this file for default App's css styles
 - `client_view/src/components/*.js` - Add/Modify/Edit any `*.js` files inside `api/components/` folder for page displays

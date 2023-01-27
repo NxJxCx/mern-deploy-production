@@ -14,11 +14,12 @@
 - `client_view/src/components/*.css` - Add/Modify/Edit any `*.css` files inside `api/components/` folder for reactjs component page styles imports inside `*.js` files
 
 **Back-End(API/Database) (api)**
-- `api/app.js` - Add lines like `app.use("/myroute", myroute);` where `myroute` is an express router from imported `api/routes` folder
-- `api/routes/*.js` - Add/Modify/Edit js files for your desired routers api to add inside `api/app.js`
+- `api/app.js` - Add lines like `app.use("/myroute", myroute);` where `myroute` is an express router imported from `api/routes` folder
+- `api/routes/*.js` - Add/Modify/Edit js files for your desired routers api to import inside `api/app.js`
 - `api/model/model.js` - Add/Modify/Edit MongoDB database schemes and models. 
 - `api/config.env` - Edit the environment variables inside this file. Example: `MONGO_URI="mongodb://127.0.0.1:27017/test"`
-> Modify environment variables inside `api/config.env` to be used as constant variables for all files inside `api` folder. Example inside `config.env`: `API_PORT=4000`
+> Modify environment variables inside `api/config.env` to be used as constant variables for all files inside `api` folder.
+> e.g. inside `config.env` => `API_PORT = 4000`
 - `api/public/www` - Edit this file if you want to add a secure `https` host api server
 
 

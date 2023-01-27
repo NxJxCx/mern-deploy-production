@@ -8,7 +8,7 @@
 > ### NodeJS
 > JavaScript runtime environment (It enables running Javascript code outside the browser)
 
- *The main purpose of using MERN stack is to develop apps using JavaScript only* 
+**_The main purpose of using MERN stack is to develop apps using JavaScript only_** 
 
 ### Files to Add/Modify/Edit:
 **Front-End (client_view)**

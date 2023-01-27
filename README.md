@@ -40,12 +40,12 @@ connectDB(process.env.MONGO_URI);
 To update any missing node.js modules
 inside `api` and `client_view`,
 simply enter these commands:
-- For the 'api' folder
+- For the `api` folder
 ```bash
 cd api
 npm install
 ```
-- For the 'client_view' folder
+- For the `client_view` folder
 ```bash
 cd client_view
 npm install

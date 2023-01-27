@@ -5,7 +5,7 @@
 > ### Node.js - Web Framework (Back-end)
 
 ### Files to Add/Modify/Edit:
-** Front-End (client_view)
+** Front-End (client_view) **
 -`client_view/public/index.html` - You can add/remove/modify tags inside head tag for css or js or any css/js bootstrap
 -`client_view/public/**` - You can add or modify `css` and `js` and/or `assets` folders for local resources
 -`client_view/src/App.js` - Add or modify `<Route />` tag inside this file for front-end routes
@@ -13,7 +13,7 @@
 -`client_view/src/components/*.js` - Add/Modify/Edit any `*.js` files inside `api/components/` folder for page displays
 -`client_view/src/components/*.css` - Add/Modify/Edit any `*.css` files inside `api/components/` folder for reactjs component page styles imports inside `*.js` files
 
-** Back-End (api)
+** Back-End (api) **
 -`api/app.js` - Add lines like `app.use("/myroute", myroute);` where `myroute` is an express router from imported `api/routes` folder
 -`api/routes/*.js` - Add/Modify/Edit js files for your desired routers api to add inside `api/app.js`
 -`api/model/model.js` - Add/Modify/Edit MongoDB database schemes and models. 

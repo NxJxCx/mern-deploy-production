@@ -26,7 +26,7 @@
 - `api/public/www` - Edit this file if you want to add a secure `https` host api server
 - `api/config.env` - Edit the environment variables inside this file. Example: `MONGO_URI="mongodb://127.0.0.1:27017/test"`
 > Modifying environment variables inside `api/config.env` are used as constant variables for all files inside `api` folder. They are called using `process.env.CONSTANT_VARIABLE_NAME`. Example:
-```
+```bash
 # inside api/config.env
 MONGO_URI = "mongodb://127.0.0.1:27017/test"
 API_PORT = 4000
@@ -53,18 +53,18 @@ npm install
 
 ### To Run a Local Server:
 - For the front-end (reactjs)
-```
+```bash
 cd client_view
 npm start
 ```
 - For the API server (express)
-```
+```bash
 cd api
 npm run dev
 ```
 
 ### To Build Production / Web Deployment on the Internet:
-```
+```bash
 cd client_view
 npm build
 ```

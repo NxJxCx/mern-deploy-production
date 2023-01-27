@@ -19,16 +19,16 @@
 - `api/model/model.js` - Add/Modify/Edit MongoDB database schemes and models. 
 - `api/public/www` - Edit this file if you want to add a secure `https` host api server
 - `api/config.env` - Edit the environment variables inside this file. Example: `MONGO_URI="mongodb://127.0.0.1:27017/test"`
-> Modifying environment variables inside `api/config.env` are used as constant variables for all files inside `api` folder. Example:
+> Modifying environment variables inside `api/config.env` are used as constant variables for all files inside `api` folder. They are called using `process.env.CONSTANT_VARIABLE_NAME`. Example:
 ```
 # inside api/config.env
-**MONGO_URI = "mongodb://127.0.0.1:27017/test"**
+MONGO_URI = "mongodb://127.0.0.1:27017/test"
 API_PORT = 4000
 ```
 ```
 # inside api/app.js
 ...
-connectDB(process.env.**MONGO_URI**);
+connectDB(process.env.MONGO_URI);
 ...
 ```
 To update modules inside `api` and `client_view`,

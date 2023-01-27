@@ -13,7 +13,7 @@ dotenv.config({path: "config.env"});
 
 var app = express();
 
-connectDB();
+connectDB(process.env.MONGO_URI);
 
 app.use(cors());
 app.use(logger('dev'));

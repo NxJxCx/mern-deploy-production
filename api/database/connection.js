@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const connectDB = async () => {
+const connectDB = async (uri) => {
     try {
         mongoose.set({'strictQuery': false});
-        console.log('connecting to mongodb database....');
-        const con = await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
+        console.log('Connecting to MongoDB database...');
+        const con = await mongoose.connect(uri || process.env.MONGO_URI || "mongodb://127.0.0.1:27017/test", { useNewUrlParser: true });
         console.log('MongoDB connected @ ' + con.connection.host);
     } catch (err) {
         console.log(err);

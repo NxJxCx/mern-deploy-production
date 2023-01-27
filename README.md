@@ -31,7 +31,8 @@ API_PORT = 4000
 connectDB(process.env.MONGO_URI);
 ...
 ```
-To update modules inside `api` and `client_view`,
+To update any missing node.js modules
+inside `api` and `client_view`,
 simply enter these commands:
 - For the 'api' folder
 ```
@@ -42,7 +43,6 @@ npm install
 ```
 cd client_view
 npm install
-
 ```
 
 ### To Run a Local Server:

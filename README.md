@@ -23,7 +23,7 @@
 - `api/app.js` - Add lines like `app.use("/myroute", myroute);` where `myroute` is an express router imported from `api/routes` folder
 - `api/routes/*.js` - Add/Modify/Edit js files for your desired routers api to import inside `api/app.js`
 - `api/model/model.js` - Add/Modify/Edit MongoDB database schemes and models. 
-- `api/public/www` - Edit this file if you want to add a secure `https` host api server
+- `api/bin/www` - Edit this file if you want to add a secure `https` host api server
 - `api/config.env` - Edit the environment variables inside this file. Example: `MONGO_URI="mongodb://127.0.0.1:27017/test"`
 > Modifying environment variables inside `api/config.env` are used as constant variables for all files inside `api` folder. They are called using `process.env.CONSTANT_VARIABLE_NAME`. Example:
 ```bash

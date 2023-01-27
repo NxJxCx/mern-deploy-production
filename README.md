@@ -1,4 +1,4 @@
-# MERN Project
+# MERN Stack Project
 > ### MongoDB
 > NoSQL Database Management System
 > ### ExpressJS

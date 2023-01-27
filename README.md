@@ -31,8 +31,8 @@
 MONGO_URI = "mongodb://127.0.0.1:27017/test"
 API_PORT = 4000
 ```
-```
-# inside api/app.js
+```javascript
+// inside api/app.js
 ...
 connectDB(process.env.MONGO_URI);
 ...
@@ -41,12 +41,12 @@ To update any missing node.js modules
 inside `api` and `client_view`,
 simply enter these commands:
 - For the 'api' folder
-```
+```bash
 cd api
 npm install
 ```
 - For the 'client_view' folder
-```
+```bash
 cd client_view
 npm install
 ```

@@ -1,0 +1,6 @@
+node_modules
+node_modules/**
+api/node_modules
+api/node_modules/**
+client_view/node_modules
+client_view/node_modules/**

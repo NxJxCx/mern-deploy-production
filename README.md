@@ -63,6 +63,12 @@ cd api
 npm run dev
 ```
 
+> Note: To successfully run the API server with mongodb connection to `mongodb://127.0.0.1:27017` localhost uri,
+> You will need to download [MongoDB Community Server](https://www.mongodb.com/try/download/community)
+> - For database connection/access through terminal or shell, download [MongoDB Shell](https://www.mongodb.com/try/download/shell)
+> - For database connection/access through GUI download [MongoDB Compass](https://www.mongodb.com/try/download/compass).
+
+
 ### To Build Production / Web Deployment on the Internet:
 ```bash
 cd client_view

@@ -26,11 +26,11 @@ function HomePage(props) {
           </div>
 
           <div className="text-center">
-            <a className="btn border-5 border-dark bg-secondary m-2" href="#">Update Student Profile</a>
+            <button className="btn border-5 border-dark bg-secondary m-2">Update Student Profile</button>
           </div>
 
           <div className="text-center">
-            <a className="btn border-5 border-dark bg-secondary m-2" href="#">Delete Student Profile</a>
+            <button className="btn border-5 border-dark bg-secondary m-2">Delete Student Profile</button>
           </div>
         </div>
 

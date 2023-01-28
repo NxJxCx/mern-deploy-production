@@ -10,6 +10,14 @@
 
 **_The main purpose of using MERN stack is to develop apps using JavaScript only_** 
 
+### Download or clone
+You can download or clone the repository with git command terminal:
+```bash
+git clone https://github.com/NxJxCx/mern.git
+```
+> Note: if you are in Windows platform, it is necessary to download and install [Git-For-Windows](https://git-scm.com/download/win).
+> If you haven't yet installed Git-For-Windows, you can download [here](https://git-scm.com/download/win)
+
 ### Files to Add/Modify/Edit:
 **Front-End (client_view)**
 - `client_view/public/index.html` - You can add/remove/modify tags inside head tag for css or js or any css/js bootstrap

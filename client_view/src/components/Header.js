@@ -1,28 +1,61 @@
 import './Header.css';
+
 function Header(props) {
-    return (
-        <div className="row">
-            <div className="col-2">
-                <nav class="nav flex-column">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    <a class="nav-link" href="/addstudent">Add Student Profile</a>
-                    <a class="nav-link" href="/displaystudents">Display All Profile</a>
-                </nav>
-            </div>
-            <div className="col-10">
-                <div className="header_section">
-                    <div className="row">
-                        <div className="col-10 text-center">
-                            <h1>{props.title}</h1>
-                        </div>
-                        <div className="col-2">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Smcc_logo.gif"  alt="smcc logo" className="header-logo"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
+
+  var isActiveNavLink = (path) => {
+    if (props.path === path) {
+      return "nav-link active";
+    }
+    return "nav-link";
+  }
+
+  return (
+    <header className="navbar-top">
+        <nav className="navbar navbar-light">
+          <div className="navbar-brand">
+            <a href="/">
+              <img src="/img/logo.png" alt="smcc logo" className="header-logo"/>
+            </a>
+            {/* Insert title here */}
+            <a href="/" className="navbar-brand">{props.title}</a>
+          </div>
+
+          <button type="button" className="navbar-toggler m-2" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarCollapse">
+            <ul className="sidebar-menu navbar-nav flex-column text-center">
+
+              {/* Home Page Link */}
+              <li className="nav-item">
+                <span className="badge badge-danger pill"></span>
+                <a className={isActiveNavLink("/")} href="/">
+                <span className="nav-text">Home</span>
+                </a>
+              </li>
+
+              {/* Create Student Profile Link */}
+              <li className="nav-item" >
+                <span className="badge badge-danger pill"></span>
+                <a className={isActiveNavLink("/addstudent")} href="/addstudent">
+                <span className="nav-text">Add Student Profile</span>
+                </a>
+              </li>
+
+              {/* Retrieve Student Profile Link */}
+              <li className="nav-item" >
+                <span className="badge badge-danger pill"></span>
+                <a className={isActiveNavLink("/displaystudents")} href="/displaystudents">
+                <span className="nav-text">Display All Profile</span>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </nav>
+    </header>
+  )
 }
 
 export default Header;

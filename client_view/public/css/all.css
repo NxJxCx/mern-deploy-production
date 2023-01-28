@@ -1,0 +1,100 @@
+/* ========================== - Splash Screen - ========================== */
+#preloader {
+    background: #0f2551;
+  }
+  /* ========================== - Header - ========================== */
+  .main-layout main .navbar-top h4 {
+    color: #192f5d!important;
+  }
+  .main-layout main .navbar-top button {
+    color: #192f5d!important;
+  }
+  .head-icon {
+    margin-right: 10px;
+    color: #192f5d!important;
+  }
+  @media (max-width: 1200px) {
+    .head-icon {
+      display: none;
+    }
+  }
+  /* ========================== - Sidebar - ========================== */
+  .uk-offcanvas-bar {
+    /* background: linear-gradient(90deg,rgb(6, 17, 72) 0%,rgb(23, 39, 132) 100%)!important; */
+    background: #192f5d!important;
+  }
+  .nav-item a {
+    color: #ffffff;
+  }
+  .sidebar-menu li:hover {
+    box-shadow: none;
+  }
+  .sidebar-menu li.active a {
+    background: #081c42!important;
+    box-shadow: none!important;
+  }
+  .sidebar-menu li a:hover {
+    background: #081c42!important;
+    box-shadow: none!important;
+  }
+  .left-panel .sidebar-menu li a:before{ /* Sidebar button left border */
+    background: #7f93ff!important;
+  }
+  .left-panel .sidebar-menu li.active a:before{ /* Sidebar button left border */
+    background: #7f93ff!important;
+  }
+  
+  .left-panel .logo { /* Image Container */
+    padding: 15px 10px 0px!important;
+  }
+  .left-panel .logo img { /* Image */
+    max-height: 45px!important;
+    width: auto;
+  }
+  /* ========================== - Content - ========================== */
+  hr{
+    margin: 0;
+  }
+  .d-li {
+    padding: 0; 
+    margin: 0!important;
+  }
+  .d-li.col-sm-2 {
+    min-width: 170px;
+  }
+  .d-li.col-sm-1 {
+    min-width: 100px;
+  }
+  .d-li select{
+    width: 100%; 
+    border-radius: 0;
+  }
+  .d-li .btn{
+    width: 100%; 
+    border-radius: 0;
+  }
+  main .first-sec{
+    padding: 15px 60px!important;
+  }
+  .li-ctrl {
+    margin: 0 0 0 10px!important;
+  }
+  main .second-sec{
+    padding: 0px 30px 30px;
+  }
+  .btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  @media (max-width: 767px) {
+    main .first-sec {
+      padding: 15px!important;
+    }
+    main .second-sec {
+      padding: 0px 0px 30px;
+    }
+    .li-ctrl {
+      margin: 10px 0px 0px!important;
+    }
+  }

@@ -1,0 +1,51 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "install",
+			"path": "api",
+			"group": "clean",
+			"problemMatcher": [],
+			"label": "npm: install - api",
+			"detail": "install dependencies from package"
+		},
+		{
+			"type": "npm",
+			"script": "install",
+			"path": "client_view",
+			"group": "clean",
+			"problemMatcher": [],
+			"label": "npm: install - client_view",
+			"detail": "install dependencies from package"
+		},
+		{
+			"type": "npm",
+			"script": "dev",
+			"path": "api",
+			"problemMatcher": [],
+			"label": "npm: dev - api",
+			"detail": "nodemon ./bin/www"
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"path": "client_view",
+			"problemMatcher": [],
+			"label": "npm: start - client_view",
+			"detail": "react-scripts start"
+		},
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "client_view",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+			"label": "npm: build - client_view",
+			"detail": "react-scripts build"
+		}
+	]
+}

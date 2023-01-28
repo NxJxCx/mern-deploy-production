@@ -12,7 +12,7 @@ function App() {
     <Router>
       <div className="main-layout">
         <Routes>
-            <Route exact path="/" element={<HomePage title="Welcome Sir Falo!" />} />
+            <Route exact path="/" element={<HomePage title="Welcome to MERN Stack!" />} />
             <Route path="/displaystudents" element={<DisplayStudents title="Student Profiles"/>} />
             <Route path="/addstudent" element={<AddStudent title="Add Student Profile" />} />
             <Route path="/studentprofile/:id" element={<StudentProfile title="Student Profile"/>} />

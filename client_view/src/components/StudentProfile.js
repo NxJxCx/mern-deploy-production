@@ -1,11 +1,105 @@
 import Header from './Header';
 import Footer from './Footer';
 import Error404 from './Error404';
+import Toaster from './Toaster';
+import FgLoading from './FgLoading';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useState, useEffect, useRef } from'react';
+
 
 function StudentProfile(props) {
   const { id } = useParams();
-  if (id) {
+  const [data, setData] = useState([]);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [hasMessage, setHasMessage] = useState({});
+
+  const formRefer = useRef(null);
+  const loadBtn = useRef(null);
+  
+  useEffect(() => {
+    const hostname = `http://${window.location.hostname}:4000/studentprofiles`;
+    axios.get(hostname)
+      .then(response => {
+        const dt = response.data;
+        if (!dt || dt.error) {
+          setData({});
+        } else {
+          for (let ii = 0; ii < dt.length; ii++) {
+            if (dt[ii]._id === id) {
+              setData(dt[ii]);
+              break;
+            }
+          }
+          setTimeout(() => {
+            [...formRefer.current].forEach(it => {
+              if (it.name && dt[it.name])
+                it.value = dt[it.name];
+            });
+          }, 1000, []);
+          
+        }
+      })
+      .catch(() => {
+        setData({});
+      })
+  }, [id]);
+
+  const pen = (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pen" viewBox="0 0 16 16">
+      <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z">
+      </path>
+    </svg>
+  );
+
+  const onClickUpdate = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const hostname = `http://${window.location.hostname}:4000/studentprofiles/${data._id}`;
+    var newdata = {};
+    [...formRefer.current].forEach(inp => {
+      if (inp.name) {
+        inp.classList.remove('border-danger');
+        if (!inp.value) {
+          inp.classList.add('border-danger');
+          loadBtn.current.click();
+        }
+        newdata[inp.name] = inp.value;
+      }
+    });
+    newdata.year = Number.parseInt(newdata.year);
+    if (newdata.firstname === data.firstname && newdata.lastname === data.lastname && newdata.course === data.course && newdata.year === data.year) {
+      loadBtn.current.click();
+      setIsUpdating(!isUpdating);
+    } else {
+      axios.put(hostname, newdata)
+        .then(response => {
+          loadBtn.current.click();
+          if (response.data.error) {
+            setData({});
+            setHasMessage({error: true});
+          } else {
+            console.log(response.data);
+            setData(Object.assign({}, response.data));
+            setHasMessage({success: true});
+          }
+          setIsUpdating(!isUpdating);
+        })
+        .catch((err) => {
+          console.log(err);
+          loadBtn.current.click();
+          setHasMessage({error: true});
+          [...formRefer.current].forEach(inp => {
+            if (inp.name && data[inp.name]) {
+              inp.value = data[inp.name];
+            }
+          });
+          setIsUpdating(!isUpdating);
+        });
+      }
+  };
+
+  if (id && data._id) {
     return (
       <div className="box">
         <div className="box-container">
@@ -13,20 +107,85 @@ function StudentProfile(props) {
             <Header title={props.title} path="/"/>
           </div>
           <div className="row content bg-dark">
-            <div className="content">
-              <div className="h1">
-                <h1 className="text-center m-2 text-light">Student Profile</h1>
+            <div className="container">
+              <div className="text-center">
+                <button className="btn border-5 border-light bg-light m-2 text-primary" onClick={(e) => {
+                  [...formRefer.current].forEach(inp => {
+                    if (inp.name && data[inp.name]) {
+                      inp.value = data[inp.name];
+                    }
+                  });
+                  setIsUpdating(!isUpdating);
+                }}>{pen} {isUpdating ? "Cancel Changes" : "Edit Profile" }</button>
+              </div>
+              {/* form here */}
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="card">
+                    <div className="card-header">
+                      <h3 className="card-title">{data.firstname} {data.lastname}</h3>
+                    </div>
+                    <div className="card-body">
+                      <form noValidate ref={formRefer} onSubmit={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (isUpdating) {
+                          onClickUpdate(e);
+                        }
+                      }}>
+                        <input type="hidden" name="_id" value={data._id} />
+                        <div className="row form-group p-2">
+                          <label htmlFor="firstname" className="col-sm-2 col-form-label fw-bolder">First Name: </label>
+                          <div className="col-sm-10">
+                           <input type="text" readOnly={!isUpdating} name="firstname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={data.firstname}/>
+                          </div>
+                        </div>
+                        <div className="row form-group p-2">
+                          <label htmlFor="lastname" className="col-sm-2 col-form-label fw-bolder">Last Name: </label>
+                          <div className="col-sm-10">
+                          <input type="text" readOnly={!isUpdating} name="lastname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={data.lastname}/>
+                          </div>
+                        </div>
+                        <div className="row form-group p-2">
+                          <label htmlFor="course" className="col-sm-2 col-form-label fw-bolder">Course: </label>
+                          <div className="col-sm-8">
+                          <input type="text" readOnly={!isUpdating} name="course" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={data.course}/>
+                          </div>
+                          <label htmlFor="year" className="col-sm-1 col-form-label fw-bolder">Year: </label>
+                          <div className="col-sm-1">
+                            <select name="year" className={isUpdating ? "form-control text-center bg-white" : "form-control text-center bg-white fw-bold"} style={{fontFamily: 'Droid Sans'}} readOnly={!isUpdating} disabled={!isUpdating}>
+                              <option value="1">I</option>
+                              <option value="2">II</option>
+                              <option value="3">III</option>
+                              <option value="4">IV</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="row form-group pt-4 pb-3 text-center" style={{width: "10em", display: "block", marginLeft: "auto", marginRight: "auto"}}>
+                          {isUpdating ? (
+                            <button type="submit" className="btn border-solid bg-primary font-weight-bold text-light mw-50" data-bs-toggle="modal" data-bs-target="#submitLoading">
+                            Update
+                          </button>
+                          ) : null}
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="text-center">
-                <a className="btn border-5 border-light bg-light m-2" href="/addstudent">{id}</a>
-              </div>
             </div>
           </div>
           <div className="row footer bg-light">
             <Footer />
           </div>
+          <div className="position-fixed">
+            {hasMessage.success ? <Toaster title="Update Student Profile" message="Updated Successfully!" /> : null}
+            {hasMessage.error ? <Toaster title="Update Student Profile" message="Failed to Update Student Information!" /> : null}
+          </div>
         </div>
+        {/*  <!-- Modal --> */}
+        <FgLoading refer={loadBtn}/>
       </div>
     );
   }

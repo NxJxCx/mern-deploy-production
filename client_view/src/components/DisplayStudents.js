@@ -56,7 +56,7 @@ function DisplayStudents(props) {
               <div className="col-md-12">
                 <div className="card">
                   <div className="card-header">
-                    <h3 className="card-title">Student Profiles</h3>
+                    <h3 className="card-title">Student Profile List</h3>
                   </div>
                   <div className="card-body table-responsive">
                     <table className="table table-striped table-light text-center">

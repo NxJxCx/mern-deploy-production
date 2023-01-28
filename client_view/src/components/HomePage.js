@@ -14,7 +14,7 @@ function HomePage(props) {
         <div className="row content bg-dark">
         
           <div className="h1">
-            <h1 className="text-center m-2 text-light">Student Management System</h1>
+            <h1 className="text-center m-2 text-light">&ldquo; A Simple Student Profile CRUD System &rdquo;</h1>
           </div>
 
           <div className="text-center">
@@ -26,11 +26,11 @@ function HomePage(props) {
           </div>
 
           <div className="text-center">
-            <a className="btn border-5 border-light bg-light m-2" href="/updatestudent">Update Student Profile</a>
+            <a className="btn border-5 border-dark bg-secondary m-2" href="#">Update Student Profile</a>
           </div>
 
           <div className="text-center">
-            <a className="btn border-5 border-light bg-light m-2" href="/deletestudent">Delete Student Profile</a>
+            <a className="btn border-5 border-dark bg-secondary m-2" href="#">Delete Student Profile</a>
           </div>
         </div>
 

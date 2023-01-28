@@ -64,7 +64,7 @@ router.post('/', (req, res, next) => {
  * (Update student profile data from database)
  */
 router.put('/:id', (req, res, next) => {
-  if (!req.data) {
+  if (!req.body) {
     console.log('PUT request data content must not be empty!');
     return res.status(400).send({error: 'PUT data content must not be empty!'});
   }
@@ -72,13 +72,12 @@ router.put('/:id', (req, res, next) => {
     console.log('PUT request ID is not provided');
     return res.status(400).send({error: 'Error: PUT request ID is not provided'});
   }
-  StudentProfileModel.findAndUpdate(req.params.id, req.data)
+  StudentProfileModel.findOneAndUpdate({_id: req.params.id}, req.body)
     .then(data => {
-      console.log(data);
       if (!data) {
         res.status(400).send({error: `Error: Failed to update student profile id ${req.params.id} from database`});
       } else {
-        res.status(200).send(data);
+        res.status(200).send(Object.assign(Object.assign({}, data), req.body));
       }
     })
     .catch(err => {

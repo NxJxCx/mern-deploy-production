@@ -45,8 +45,7 @@ API_PORT = 4000
 connectDB(process.env.MONGO_URI);
 ...
 ```
-### To update any missing node.js modules inside `api` and `client_view`,
-### simply enter these commands:
+### To update any missing node.js modules inside `api` and `client_view`, simply enter these commands:
 - For the `api` folder
 ```bash
 cd api

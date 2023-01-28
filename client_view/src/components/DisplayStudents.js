@@ -51,14 +51,14 @@ function DisplayStudents(props) {
           <Header title={props.title} path="/displaystudents"/>
         </div>
         <div className="row content bg-dark">
-          <div className="container">
+          <div className="container py-2">
             <div className="row">
               <div className="col-md-12">
                 <div className="card">
                   <div className="card-header">
                     <h3 className="card-title">Student Profiles</h3>
                   </div>
-                  <div className="card-body">
+                  <div className="card-body table-responsive">
                     <table className="table table-striped table-light text-center">
                       <thead>
                         <tr>

@@ -1,25 +1,9 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import axios from 'axios';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Toaster from './Toaster';
-
-function FgLoading(props) {
-  return (
-    <div className="modal fade" id="submitLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div className="modal-dialog" style={{position: 'fixed', top: '48%', left: '48%', transform: 'transform(-50%, -50%)'}}>
-        <div className="modal-content">
-          <div className="modal-body">
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
-              <button className="btn hide" data-bs-dismiss="modal" ref={props.reference}>Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+import FgLoading from './FgLoading';
 
 function AddStudent(props) {     
   const [displayMessage, setDisplayMessage] = useState({
@@ -27,35 +11,45 @@ function AddStudent(props) {
     success: false
   });
 
-  const loadRefer = useRef(null);
+  const loadBtn = useRef(null);
+  const formReference = useRef(null);
 
   const onSubmitClick = function(e) {
-      var data = {};
-      for (let i = 0; i < e.target.length; i++) {
-        if (e.target[i].name)
-          data[e.target[i].name] = e.target[i].value;
+    e.preventDefault();
+    e.stopPropagation();
+    var data = {};
+    for (let i = 0; i < e.target.length; i++) {
+      if (e.target[i].name) {
+        e.target[i].classList.remove('border-danger');
+        if (!e.target[i].value) {
+          e.target[i].classList.add('border-danger');
+          loadBtn.current.click();
+          return setDisplayMessage({error: true});
+        }
+        data[e.target[i].name] = e.target[i].value;
       }
-      const host = window.location.hostname;
-      axios.post("http://" + host + ":4000/studentprofiles", data)
-        .then(res => {
-          const dismissbtn = loadRefer.current;
-          if (dismissbtn) {
-            console.log("dismissing");
-            dismissbtn.click();
-          }
-          if (res.data.error)
-            setDisplayMessage({error: true});
-          else
-            setDisplayMessage({success: true});
-        })
-        .catch(() => {
-          const dismissbtn = loadRefer.current;
-          if (dismissbtn) {
-            console.log("dismissing");
-            dismissbtn.click();
-          }
+    }
+
+    const host = window.location.hostname;
+    axios.post("http://" + host + ":4000/studentprofiles", data)
+      .then(res => {
+        loadBtn.current.click();
+        if (res.data.error)
           setDisplayMessage({error: true});
-        });
+        else {
+          setDisplayMessage({success: true});
+          [...formReference.current].forEach(inp => {
+            if (inp.name === "year")
+              inp.value = "1";
+            else
+              inp.value = "";
+          });
+        }
+      })
+      .catch(() => {
+        loadBtn.current.click();
+        setDisplayMessage({error: true});
+      });
   }
 
   return (
@@ -73,23 +67,23 @@ function AddStudent(props) {
                     <h3 className="card-title">Add New Student Profile</h3>
                   </div>
                   <div className="card-body">
-                    <form noValidate onSubmit={onSubmitClick}>
+                    <form ref={formReference} noValidate onSubmit={onSubmitClick}>
                       <div className="row form-group p-2">
                         <label htmlFor="firstname" className="col-sm-2 col-form-label">Input First Name: </label>
                         <div className="col-sm-10">
-                          <input type="text" name="firstname" className="form-control" />
+                          <input type="text" name="firstname" className="form-control" placeholder="First Name"/>
                         </div>
                       </div>
                       <div className="row form-group p-2">
                         <label htmlFor="lastname" className="col-sm-2 col-form-label">Input Last Name: </label>
                         <div className="col-sm-10">
-                          <input type="text" name="lastname" className="form-control" />
+                          <input type="text" name="lastname" className="form-control" placeholder="Last Name"/>
                         </div>
                       </div>
                       <div className="row form-group p-2">
                         <label htmlFor="course" className="col-sm-2 col-form-label">Input Course: </label>
                         <div className="col-sm-8">
-                          <input type="text" name="course" className="form-control" />
+                          <input type="text" name="course" className="form-control" placeholder="Course"/>
                         </div>
                         <label htmlFor="year" className="col-sm-1 col-form-label">Year: </label>
                         <div className="col-sm-1">
@@ -122,7 +116,7 @@ function AddStudent(props) {
         {displayMessage.error ? <Toaster title="Add Student Profile" message="Failed to Register Student!" /> : null}
       </div>
       {/*  <!-- Modal --> */}
-      <FgLoading ref={loadRefer}/>
+      <FgLoading refer={loadBtn}/>
     </div> 
   );
 }

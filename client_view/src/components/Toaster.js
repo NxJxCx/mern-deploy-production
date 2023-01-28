@@ -11,12 +11,11 @@ function Toaster(pdata) {
     setTimeout(() => {
       ref.current.classList.remove("show");
       ref.current.classList.add("hide");
-    }, 5000);
+    }, 3000);
   });
   return (
     <div className="toast" role="alert" aria-live="assertive" aria-atomic="true" id={pdata.id} ref={ref}>
       <div className="toast-header bg-success text-light">
-        {/*<placeholder width="20" height="20" background="#007aff" className="rounded me-2" text="false" title="false" />*/}
         <strong className="me-auto">{pdata.title}</strong>
         <small className="text-muted">{pdata.timestr}</small>
         <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

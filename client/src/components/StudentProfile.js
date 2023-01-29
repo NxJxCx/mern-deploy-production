@@ -40,7 +40,9 @@ function StudentProfile(props) {
           } else {
             for (let ii = 0; ii < dt.length; ii++) {
               if (dt[ii]._id === id) {
-                if (studentData !== dt[ii]) {
+                console.log(JSON.stringify(studentData), JSON.stringify(dt[ii]));
+                console.log(JSON.stringify(studentData) === JSON.stringify(dt[ii]))
+                if (JSON.stringify(studentData) !== JSON.stringify(dt[ii])) {
                   setStudentData(dt[ii]);
                   if (isError) {
                     setIsError(false);

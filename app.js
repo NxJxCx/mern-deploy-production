@@ -9,6 +9,10 @@ var studentsRouter = require('./routes/studentprofile');
 
 var app = express();
 
+if (process.env.NODE_ENV !== "production") {
+  require('dotenv').config({ path : "myconfig.env"});
+}
+
 connectDB(process.env.MONGO_URI);
 
 app.use(cors());

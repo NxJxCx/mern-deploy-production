@@ -161,7 +161,7 @@ function StudentProfile(props) {
                 }}>{pen} {isUpdating ? "Cancel Changes" : "Edit Profile" }</button>
               </div>
               {/* form here */}
-              <div className="row overflow-scroll">
+              <div className="row">
                 <div className="col-md-12">
                   <div className="card">
                     <div className="card-header">

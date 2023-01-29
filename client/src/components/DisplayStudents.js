@@ -9,7 +9,7 @@ import FgLoading from './FgLoading';
 
 
 function DisplayStudents(props) {
-  const [studentData, setStudentData] = useState(null);
+  const [studentData, setStudentData] = useState([]);
   const [selected, setSelected] = useState({index: null, id: null, firstname: null, lastname: null, course: null, year: null});
   const [toasters, setToasters] = useState([]);
   const [loadIsOpen, setLoadIsOpen] = useState(false);
@@ -130,6 +130,7 @@ function DisplayStudents(props) {
     </div>      
   );
 }
+
 
 
 export default DisplayStudents;

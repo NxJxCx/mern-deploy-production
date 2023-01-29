@@ -9,7 +9,7 @@ function FgLoading(props) {
       openRef.current.click();
       openRef.current.dataset.isopen = true;
     } 
-  }, [showModal, setShowModal, openRef]);
+  }, [showModal, setShowModal, openRef, props.isOpen]);
   
   return (
     <div className="modal" id="submitLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="submitLoadingLabel" aria-hidden="true">

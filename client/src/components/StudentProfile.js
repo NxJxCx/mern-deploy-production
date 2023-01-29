@@ -86,15 +86,6 @@ function StudentProfile(props) {
       </path>
     </svg>
   );
-  
-  const onEditBtnClick = () => {
-    [...formRefer.current].forEach(inp => {
-      if (inp.name && studentData[inp.name]) {
-        inp.value = studentData[inp.name];
-      }
-    });
-    setIsUpdating(!isUpdating);
-  }
 
   const onClickUpdate = (event) => {
     event.preventDefault();
@@ -111,6 +102,7 @@ function StudentProfile(props) {
         newdata[inp.name] = inp.value;
       }
     });
+
     newdata.year = Number.parseInt(newdata.year);
     if (newdata.firstname === studentData.firstname && newdata.lastname === studentData.lastname && newdata.course === studentData.course && newdata.year === studentData.year) {
       loadBtn.current.click();
@@ -153,7 +145,15 @@ function StudentProfile(props) {
           <div className="row content bg-dark">
             <div className="container">
               <div className="text-center">
-                <button className="btn border-5 border-light bg-light m-2 text-primary" onClick={onEditBtnClick}>{pen} {isUpdating ? "Cancel Changes" : "Edit Profile" }</button>
+                <button className="btn border-5 border-light bg-light m-2 text-primary" onClick={() => {
+                  setHasMessage({});
+                  [...formRefer.current].forEach(inp => {
+                    if (inp.name && studentData[inp.name] && "" + inp.value !==  "" + studentData[inp.name]) {
+                      inp.value = studentData[inp.name];
+                    }
+                  });
+                  setIsUpdating(!isUpdating);
+                }}>{pen} {isUpdating ? "Cancel Changes" : "Edit Profile" }</button>
               </div>
               {/* form here */}
               <div className="row">

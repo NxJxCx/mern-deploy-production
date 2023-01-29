@@ -10,40 +10,63 @@ import { useState, useEffect, useRef } from'react';
 
 function StudentProfile(props) {
   const { id } = useParams();
-  const [data, setData] = useState([]);
+  const [studentData, setStudentData] = useState({});
   const [isUpdating, setIsUpdating] = useState(false);
   const [hasMessage, setHasMessage] = useState({});
-
+  const [isError, setIsError] = useState(false);
+  
   const formRefer = useRef(null);
   const loadBtn = useRef(null);
   
   useEffect(() => {
-    const hostname = `http://${window.location.hostname}:4000/studentprofiles`;
-    axios.get(hostname)
-      .then(response => {
-        const dt = response.data;
-        if (!dt || dt.error) {
-          setData({});
-        } else {
-          for (let ii = 0; ii < dt.length; ii++) {
-            if (dt[ii]._id === id) {
-              setData(dt[ii]);
-              break;
+    const getDataFromAPI = () => {
+      const hostname = `http://${window.location.hostname}:4000/studentprofiles`;
+      axios.get(hostname)
+        .then(response => {
+          const dt = response.data;
+          if (!dt || dt.error) {
+            setStudentData({});
+            if (!isError)
+              setIsError(true);
+          } else {
+            for (let ii = 0; ii < dt.length; ii++) {
+              if (dt[ii]._id === id) {
+                setStudentData(dt[ii]);
+                if (isError)
+                  setIsError(false);
+                break;
+              }
+            }
+            setTimeout(() => {
+              [...formRefer.current].forEach(it => {
+                if (it.name && dt[it.name])
+                  it.value = dt[it.name];
+              });
+            }, 1000, []);
+          }
+          const backdrop = document.getElementsByClassName('modal-backdrop show');
+          if (backdrop.length > 0) {
+            for (let ib = 0; ib < backdrop.length; ib++)  { 
+              backdrop[ib].remove();
             }
           }
-          setTimeout(() => {
-            [...formRefer.current].forEach(it => {
-              if (it.name && dt[it.name])
-                it.value = dt[it.name];
-            });
-          }, 1000, []);
+          if (loadBtn.current) {
+            loadBtn.current.click();
+          }
           
-        }
-      })
-      .catch(() => {
-        setData({});
-      })
-  }, [id]);
+        })
+        .catch(() => {
+          setStudentData({});
+          if (loadBtn.current) {
+            loadBtn.current.click();
+          }
+          if (!isError)
+            setIsError(true);
+        })
+    }
+    const interval = setInterval(getDataFromAPI, 1000);
+    return () => clearInterval(interval);
+  }, [id, studentData, loadBtn, isError, setStudentData, setIsError]);
 
   const pen = (
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pen" viewBox="0 0 16 16">
@@ -55,7 +78,7 @@ function StudentProfile(props) {
   const onClickUpdate = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    const hostname = `http://${window.location.hostname}:4000/studentprofiles/${data._id}`;
+    const hostname = `http://${window.location.hostname}:4000/studentprofiles/${studentData._id}`;
     var newdata = {};
     [...formRefer.current].forEach(inp => {
       if (inp.name) {
@@ -68,7 +91,7 @@ function StudentProfile(props) {
       }
     });
     newdata.year = Number.parseInt(newdata.year);
-    if (newdata.firstname === data.firstname && newdata.lastname === data.lastname && newdata.course === data.course && newdata.year === data.year) {
+    if (newdata.firstname === studentData.firstname && newdata.lastname === studentData.lastname && newdata.course === studentData.course && newdata.year === studentData.year) {
       loadBtn.current.click();
       setIsUpdating(!isUpdating);
     } else {
@@ -76,11 +99,11 @@ function StudentProfile(props) {
         .then(response => {
           loadBtn.current.click();
           if (response.data.error) {
-            setData({});
+            setStudentData({});
             setHasMessage({error: true});
           } else {
             console.log(response.data);
-            setData(Object.assign({}, response.data));
+            setStudentData(Object.assign({}, response.data));
             setHasMessage({success: true});
           }
           setIsUpdating(!isUpdating);
@@ -90,8 +113,8 @@ function StudentProfile(props) {
           loadBtn.current.click();
           setHasMessage({error: true});
           [...formRefer.current].forEach(inp => {
-            if (inp.name && data[inp.name]) {
-              inp.value = data[inp.name];
+            if (inp.name && studentData[inp.name]) {
+              inp.value = studentData[inp.name];
             }
           });
           setIsUpdating(!isUpdating);
@@ -99,7 +122,7 @@ function StudentProfile(props) {
       }
   };
 
-  if (id && data._id) {
+  if (id && studentData._id) {
     return (
       <div className="box">
         <div className="box-container">
@@ -111,8 +134,8 @@ function StudentProfile(props) {
               <div className="text-center">
                 <button className="btn border-5 border-light bg-light m-2 text-primary" onClick={(e) => {
                   [...formRefer.current].forEach(inp => {
-                    if (inp.name && data[inp.name]) {
-                      inp.value = data[inp.name];
+                    if (inp.name && studentData[inp.name]) {
+                      inp.value = studentData[inp.name];
                     }
                   });
                   setIsUpdating(!isUpdating);
@@ -123,7 +146,7 @@ function StudentProfile(props) {
                 <div className="col-md-12">
                   <div className="card">
                     <div className="card-header">
-                      <h3 className="card-title">{data.firstname} {data.lastname}</h3>
+                      <h3 className="card-title">{studentData.firstname} {studentData.lastname}</h3>
                     </div>
                     <div className="card-body">
                       <form noValidate ref={formRefer} onSubmit={(e) => {
@@ -133,23 +156,23 @@ function StudentProfile(props) {
                           onClickUpdate(e);
                         }
                       }}>
-                        <input type="hidden" name="_id" value={data._id} />
+                        <input type="hidden" name="_id" value={studentData._id} />
                         <div className="row form-group p-2">
                           <label htmlFor="firstname" className="col-sm-2 col-form-label fw-bolder">First Name: </label>
                           <div className="col-sm-10">
-                           <input type="text" readOnly={!isUpdating} name="firstname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={data.firstname}/>
+                           <input type="text" readOnly={!isUpdating} name="firstname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.firstname}/>
                           </div>
                         </div>
                         <div className="row form-group p-2">
                           <label htmlFor="lastname" className="col-sm-2 col-form-label fw-bolder">Last Name: </label>
                           <div className="col-sm-10">
-                          <input type="text" readOnly={!isUpdating} name="lastname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={data.lastname}/>
+                          <input type="text" readOnly={!isUpdating} name="lastname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.lastname}/>
                           </div>
                         </div>
                         <div className="row form-group p-2">
                           <label htmlFor="course" className="col-sm-2 col-form-label fw-bolder">Course: </label>
                           <div className="col-sm-8">
-                          <input type="text" readOnly={!isUpdating} name="course" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={data.course}/>
+                          <input type="text" readOnly={!isUpdating} name="course" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.course}/>
                           </div>
                           <label htmlFor="year" className="col-sm-1 col-form-label fw-bolder">Year: </label>
                           <div className="col-sm-1">
@@ -186,6 +209,25 @@ function StudentProfile(props) {
         </div>
         {/*  <!-- Modal --> */}
         <FgLoading refer={loadBtn}/>
+      </div>
+    );
+  }
+  if (!isError) {
+    return (
+      <div className="box">
+        <div className="box-container">
+        <div className="row header">
+          <Header title={props.title} path="/"/>
+        </div>
+        </div>
+        <div className="row content bg-dark">
+          <div className="container">
+            <FgLoading isOpen={true}/>
+          </div>
+        </div>
+        <div className="row footer bg-light">
+          <Footer />
+        </div>
       </div>
     );
   }

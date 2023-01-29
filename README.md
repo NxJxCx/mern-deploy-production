@@ -17,6 +17,7 @@ git clone https://github.com/NxJxCx/mern.git
 ```
 > Note: if you are in Windows platform, it is necessary to download and install [Git-For-Windows](https://git-scm.com/download/win).
 > If you haven't yet installed Git-For-Windows, you can download [here](https://git-scm.com/download/win)
+> Also, NodeJS is required to be installed to be able run the Front-End and Back-End Server. You can download it [here](https://nodejs.org/en/download/)
 
 ### Files to Add/Modify/Edit:
 **Front-End (client_view)**

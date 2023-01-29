@@ -1,28 +1,56 @@
 import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import Toaster from './Toaster';
 import TableDataStudents from './TableDataStudents';
+import FgLoading from './FgLoading';
 
 
 function DisplayStudents(props) {
   const [studentData, setStudentData] = useState([]);
   const [selected, setSelected] = useState({index: null, id: null, firstname: null, lastname: null, course: null, year: null});
   const [toasters, setToasters] = useState([]);
+  const [loadIsOpen, setLoadIsOpen] = useState(false);
+
+  const fgloadbtn = useRef(null);
+  const openLoadbtn = useRef(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const host = window.location.hostname;
-      axios.get("http://" + host + ":4000/studentprofiles")
+    const getDataFromAPI = () => {
+      const hostname = `http://${window.location.hostname}:4000/studentprofiles`;
+      axios.get(hostname)
         .then(res => {
           setStudentData(res.data);
+          if (fgloadbtn.current && loadIsOpen) {
+            fgloadbtn.current.click();
+            setLoadIsOpen(false);
+          }
         })
-        .catch(err => console.error(err));
-    }, 2000);
-    return () => clearInterval(interval);
-  });
+        .catch(err => {
+          console.error(err);
+          if (fgloadbtn.current && loadIsOpen) {
+            fgloadbtn.current.click();
+            setLoadIsOpen(false);
+          }
+        });
+    }
+
+    if (!studentData.length && !loadIsOpen) {
+      setLoadIsOpen(true);
+      if (openLoadbtn.current && !studentData.length) {
+        const loadbtn = openLoadbtn.current;
+        loadbtn.click();
+        getDataFromAPI();
+      }
+    } else {
+      const interval = setInterval(getDataFromAPI, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [loadIsOpen, studentData, fgloadbtn, openLoadbtn, setLoadIsOpen, setStudentData]);
+
+  
   
   
   const onGetStudentData = () => {
@@ -92,7 +120,9 @@ function DisplayStudents(props) {
       <ConfirmDeleteModal data={selected} toast={onToaster} setSelected={setSelected}/>
       <div className="position-fixed">
         {toasters}
+        <button className="btn hide" ref={openLoadbtn} data-bs-toggle="modal" data-bs-target="#submitLoading"></button>
       </div>
+      <FgLoading refer={fgloadbtn}/>
     </div>      
   );
 }

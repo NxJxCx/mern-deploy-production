@@ -44,25 +44,21 @@ function StudentProfile(props) {
                         }
                       });
                     }
-                  }, 500);
+                  }, 200);
                 }
                 break;
               }
             }
-            setTimeout(() => {
-              [...formRefer.current].forEach(it => {
-                if (it.name && dt[it.name])
-                  it.value = dt[it.name];
-              });
-            }, 1000, []);
           }
           const backdrop = document.getElementsByClassName('modal-backdrop show');
           if (backdrop.length > 0) {
             for (let ib = 0; ib < backdrop.length; ib++)  { 
               backdrop[ib].remove();
             }
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = 'auto';
+            setTimeout(() => {
+              document.body.classList.remove('modal-open');
+              document.body.style.overflow = null;
+            }, 500);
           }
           if (loadBtn.current) {
             loadBtn.current.click();

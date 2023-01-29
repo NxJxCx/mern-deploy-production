@@ -169,27 +169,27 @@ function StudentProfile(props) {
                     </div>
                     <div className="card-body">
                       <form noValidate ref={formRefer} onSubmit={onSubmitClick}>
-                        <input type="hidden" name="_id" value={studentData._id} />
+                      <input type="hidden" name="_id" value={studentData._id} />
                         <div className="row form-group p-2">
                           <label htmlFor="firstname" className="col-sm-2 col-form-label fw-bolder">First Name: </label>
                           <div className="col-sm-10">
-                           <input type="text" readOnly={!isUpdating} name="firstname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.firstname}/>
+                           <input type="text" readOnly={!isUpdating} name="firstname" className={isUpdating ? "form-control fw-bold" : "form-control-plaintext"} placeholder={studentData.firstname}/>
                           </div>
                         </div>
                         <div className="row form-group p-2">
                           <label htmlFor="lastname" className="col-sm-2 col-form-label fw-bolder">Last Name: </label>
                           <div className="col-sm-10">
-                          <input type="text" readOnly={!isUpdating} name="lastname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.lastname}/>
+                          <input type="text" readOnly={!isUpdating} name="lastname" className={isUpdating ? "form-control fw-bold" : "form-control-plaintext"} placeholder={studentData.lastname}/>
                           </div>
                         </div>
                         <div className="row form-group p-2">
                           <label htmlFor="course" className="col-sm-2 col-form-label fw-bolder">Course: </label>
                           <div className="col-sm-8">
-                          <input type="text" readOnly={!isUpdating} name="course" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.course}/>
+                          <input type="text" readOnly={!isUpdating} name="course" className={isUpdating ? "form-control fw-bold" : "form-control-plaintext"} placeholder={studentData.course}/>
                           </div>
                           <label htmlFor="year" className="col-sm-1 col-form-label fw-bolder">Year: </label>
                           <div className="col-sm-1">
-                            <select name="year" className={isUpdating ? "form-control text-center bg-white" : "form-control text-center bg-white fw-bold"} style={{fontFamily: 'Droid Sans'}} readOnly={!isUpdating} disabled={!isUpdating}>
+                            <select name="year" className={isUpdating ? "form-control text-center bg-white fw-bold" : "form-control text-center bg-white fs-5 border-0"} style={{fontFamily: 'Droid Sans'}} readOnly={!isUpdating} disabled={!isUpdating}>
                               <option value="1">I</option>
                               <option value="2">II</option>
                               <option value="3">III</option>

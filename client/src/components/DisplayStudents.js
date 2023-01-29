@@ -19,7 +19,7 @@ function DisplayStudents(props) {
 
   useEffect(() => {
     const getDataFromAPI = () => {
-      const hostname = `http://${window.location.hostname}:4000/studentprofiles`;
+      const hostname = '/api/studentprofiles';
       axios.get(hostname)
         .then(res => {
           setStudentData(res.data);

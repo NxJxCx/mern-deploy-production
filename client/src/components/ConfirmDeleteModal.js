@@ -5,7 +5,8 @@ function ConfirmDeleteModal(props) {
   
   const onClickDelete = () => {
     if (selectedID) {
-      axios.delete("http://" + window.location.hostname + ":4000/studentprofiles/" + selectedID)
+      const hostname = '/api/studentprofiles/';
+      axios.delete(hostname + selectedID)
       .then(() => {
         props.toast("Delete", "Deleted Successfully");
         props.setSelected({index: null, id: null, firstname: null, lastname: null, course: null, year: null});

@@ -3,13 +3,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-var dotenv = require('dotenv');
 var connectDB = require('./database/connection')
 
 var indexRouter = require('./routes/index');
 var studentsRouter = require('./routes/studentprofile');
-
-dotenv.config({path: "config.env"});
 
 var app = express();
 
@@ -22,7 +19,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/studentprofiles', studentsRouter);
+app.use('/api/studentprofiles', studentsRouter);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (_, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 module.exports = app;

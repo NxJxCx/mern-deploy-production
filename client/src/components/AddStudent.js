@@ -30,8 +30,8 @@ function AddStudent(props) {
       }
     }
 
-    const host = window.location.hostname;
-    axios.post("http://" + host + ":4000/studentprofiles", data)
+    const hostname = '/api/studentprofiles';
+    axios.post(hostname, data)
       .then(res => {
         loadBtn.current.click();
         if (res.data.error)

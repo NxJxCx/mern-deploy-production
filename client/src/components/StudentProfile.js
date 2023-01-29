@@ -20,7 +20,7 @@ function StudentProfile(props) {
   
   useEffect(() => {
     const getDataFromAPI = () => {
-      const hostname = `http://${window.location.hostname}:4000/studentprofiles`;
+      const hostname = '/api/studentprofiles';
       axios.get(hostname)
         .then(response => {
           const dt = response.data;
@@ -78,7 +78,7 @@ function StudentProfile(props) {
   const onClickUpdate = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    const hostname = `http://${window.location.hostname}:4000/studentprofiles/${studentData._id}`;
+    const hostname = "/api/studentprofiles/" + studentData._id;
     var newdata = {};
     [...formRefer.current].forEach(inp => {
       if (inp.name) {

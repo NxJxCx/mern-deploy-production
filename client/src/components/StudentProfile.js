@@ -31,9 +31,11 @@ function StudentProfile(props) {
           } else {
             for (let ii = 0; ii < dt.length; ii++) {
               if (dt[ii]._id === id) {
-                setStudentData(dt[ii]);
-                if (isError) {
-                  setIsError(false);
+                if (studentData !== dt[ii]) {
+                  setStudentData(dt[ii]);
+                  if (isError) {
+                    setIsError(false);
+                  }
                   onEditBtnClick();
                   onEditBtnClick();
                 }

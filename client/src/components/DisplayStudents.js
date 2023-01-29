@@ -9,7 +9,7 @@ import FgLoading from './FgLoading';
 
 
 function DisplayStudents(props) {
-  const [studentData, setStudentData] = useState([]);
+  const [studentData, setStudentData] = useState(null);
   const [selected, setSelected] = useState({index: null, id: null, firstname: null, lastname: null, course: null, year: null});
   const [toasters, setToasters] = useState([]);
   const [loadIsOpen, setLoadIsOpen] = useState(false);
@@ -22,10 +22,14 @@ function DisplayStudents(props) {
       const hostname = '/api/studentprofiles';
       axios.get(hostname)
         .then(res => {
-          setStudentData(res.data);
-          if (fgloadbtn.current && loadIsOpen) {
-            fgloadbtn.current.click();
-            setLoadIsOpen(false);
+          if (res.data.error) {
+            setStudentData([]);
+          } else {
+            setStudentData(res.data);
+            if (fgloadbtn.current && loadIsOpen) {
+              fgloadbtn.current.click();
+              setLoadIsOpen(false);
+            }
           }
         })
         .catch(err => {
@@ -37,7 +41,7 @@ function DisplayStudents(props) {
         });
     }
 
-    if (!studentData.length && !loadIsOpen) {
+    if (studentData === null && !loadIsOpen) {
       setLoadIsOpen(true);
       if (openLoadbtn.current && !studentData.length) {
         const loadbtn = openLoadbtn.current;

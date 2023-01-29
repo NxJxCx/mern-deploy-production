@@ -45,8 +45,8 @@ function StudentProfile(props) {
                   if (isError) {
                     setIsError(false);
                   }
-                  onEditBtnClick();
-                  onEditBtnClick();
+                  setTimeout(onEditBtnClick, 200);
+                  setTimeout(onEditBtnClick, 500);
                 }
                 break;
               }
@@ -80,7 +80,7 @@ function StudentProfile(props) {
     }
     const interval = setInterval(getDataFromAPI, 1000);
     return () => clearInterval(interval);
-  }, [id, studentData, loadBtn, isError, setStudentData, setIsError, onEditBtnClick]);
+  }, [id, studentData, loadBtn, isError, formRefer, setStudentData, setIsError, onEditBtnClick]);
 
   const pen = (
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pen" viewBox="0 0 16 16">

@@ -142,68 +142,70 @@ function StudentProfile(props) {
             <Header title={props.title} path="/"/>
           </div>
           <div className="row content bg-dark">
-            <div className="text-center">
-              <button className="btn border-5 border-light bg-light m-2 text-primary" onClick={() => {
-                setHasMessage({});
-                [...formRefer.current].forEach(inp => {
-                  if (inp.name && studentData[inp.name] && "" + inp.value !==  "" + studentData[inp.name]) {
-                    inp.value = studentData[inp.name];
-                  }
-                });
-                setIsUpdating(!isUpdating);
-              }}>{pen} {isUpdating ? "Cancel Changes" : "Edit Profile" }</button>
-            </div>
-            {/* form here */}
-            <div className="row overflow-scroll">
-              <div className="col-md-12">
-                <div className="card">
-                  <div className="card-header">
-                    <h3 className="card-title">{studentData.firstname} {studentData.lastname}</h3>
-                  </div>
-                  <div className="card-body">
-                    <form noValidate ref={formRefer} onSubmit={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      if (isUpdating) {
-                        onClickUpdate(e);
-                      }
-                    }}>
-                      <input type="hidden" name="_id" value={studentData._id} />
-                      <div className="row form-group p-2">
-                        <label htmlFor="firstname" className="col-sm-2 col-form-label fw-bolder">First Name: </label>
-                        <div className="col-sm-10">
-                          <input type="text" readOnly={!isUpdating} name="firstname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.firstname}/>
+            <div className="container">
+              <div className="text-center">
+                <button className="btn border-5 border-light bg-light m-2 text-primary" onClick={() => {
+                  setHasMessage({});
+                  [...formRefer.current].forEach(inp => {
+                    if (inp.name && studentData[inp.name] && "" + inp.value !==  "" + studentData[inp.name]) {
+                      inp.value = studentData[inp.name];
+                    }
+                  });
+                  setIsUpdating(!isUpdating);
+                }}>{pen} {isUpdating ? "Cancel Changes" : "Edit Profile" }</button>
+              </div>
+              {/* form here */}
+              <div className="row overflow-scroll">
+                <div className="col-md-12">
+                  <div className="card">
+                    <div className="card-header">
+                      <h3 className="card-title">{studentData.firstname} {studentData.lastname}</h3>
+                    </div>
+                    <div className="card-body">
+                      <form noValidate ref={formRefer} onSubmit={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (isUpdating) {
+                          onClickUpdate(e);
+                        }
+                      }}>
+                        <input type="hidden" name="_id" value={studentData._id} />
+                        <div className="row form-group p-2">
+                          <label htmlFor="firstname" className="col-sm-2 col-form-label fw-bolder">First Name: </label>
+                          <div className="col-sm-10">
+                           <input type="text" readOnly={!isUpdating} name="firstname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.firstname}/>
+                          </div>
                         </div>
-                      </div>
-                      <div className="row form-group p-2">
-                        <label htmlFor="lastname" className="col-sm-2 col-form-label fw-bolder">Last Name: </label>
-                        <div className="col-sm-10">
-                        <input type="text" readOnly={!isUpdating} name="lastname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.lastname}/>
+                        <div className="row form-group p-2">
+                          <label htmlFor="lastname" className="col-sm-2 col-form-label fw-bolder">Last Name: </label>
+                          <div className="col-sm-10">
+                          <input type="text" readOnly={!isUpdating} name="lastname" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.lastname}/>
+                          </div>
                         </div>
-                      </div>
-                      <div className="row form-group p-2">
-                        <label htmlFor="course" className="col-sm-2 col-form-label fw-bolder">Course: </label>
-                        <div className="col-sm-8">
-                        <input type="text" readOnly={!isUpdating} name="course" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.course}/>
+                        <div className="row form-group p-2">
+                          <label htmlFor="course" className="col-sm-2 col-form-label fw-bolder">Course: </label>
+                          <div className="col-sm-8">
+                          <input type="text" readOnly={!isUpdating} name="course" className={isUpdating ? "form-control" : "form-control fw-bold"} placeholder={studentData.course}/>
+                          </div>
+                          <label htmlFor="year" className="col-sm-1 col-form-label fw-bolder">Year: </label>
+                          <div className="col-sm-1">
+                            <select name="year" className={isUpdating ? "form-control text-center bg-white" : "form-control text-center bg-white fw-bold"} style={{fontFamily: 'Droid Sans'}} readOnly={!isUpdating} disabled={!isUpdating}>
+                              <option value="1">I</option>
+                              <option value="2">II</option>
+                              <option value="3">III</option>
+                              <option value="4">IV</option>
+                            </select>
+                          </div>
                         </div>
-                        <label htmlFor="year" className="col-sm-1 col-form-label fw-bolder">Year: </label>
-                        <div className="col-sm-1">
-                          <select name="year" className={isUpdating ? "form-control text-center bg-white" : "form-control text-center bg-white fw-bold"} style={{fontFamily: 'Droid Sans'}} readOnly={!isUpdating} disabled={!isUpdating}>
-                            <option value="1">I</option>
-                            <option value="2">II</option>
-                            <option value="3">III</option>
-                            <option value="4">IV</option>
-                          </select>
+                        <div className="row form-group pt-4 pb-3 text-center" style={{width: "10em", display: "block", marginLeft: "auto", marginRight: "auto"}}>
+                          {isUpdating ? (
+                            <button type="submit" className="btn border-solid bg-primary font-weight-bold text-light mw-50" data-bs-toggle="modal" data-bs-target="#submitLoading">
+                            Update
+                          </button>
+                          ) : null}
                         </div>
-                      </div>
-                      <div className="row form-group pt-4 pb-3 text-center" style={{width: "10em", display: "block", marginLeft: "auto", marginRight: "auto"}}>
-                        {isUpdating ? (
-                          <button type="submit" className="btn border-solid bg-primary font-weight-bold text-light mw-50" data-bs-toggle="modal" data-bs-target="#submitLoading">
-                          Update
-                        </button>
-                        ) : null}
-                      </div>
-                    </form>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -216,9 +218,9 @@ function StudentProfile(props) {
             {hasMessage.success ? <Toaster title="Update Student Profile" message="Updated Successfully!" /> : null}
             {hasMessage.error ? <Toaster title="Update Student Profile" message="Failed to Update Student Information!" /> : null}
           </div>
+          {"<!-- Modal -->"}
+          <FgLoading refer={loadBtn}/>
         </div>
-        {/*  <!-- Modal --> */}
-        <FgLoading refer={loadBtn}/>
       </div>
     );
   }

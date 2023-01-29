@@ -218,7 +218,7 @@ function StudentProfile(props) {
             {hasMessage.success ? <Toaster title="Update Student Profile" message="Updated Successfully!" /> : null}
             {hasMessage.error ? <Toaster title="Update Student Profile" message="Failed to Update Student Information!" /> : null}
           </div>
-          {"<!-- Modal -->"}
+          {/* <!-- Modal --> */}
           <FgLoading refer={loadBtn}/>
         </div>
       </div>

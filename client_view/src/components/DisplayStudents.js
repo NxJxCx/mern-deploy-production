@@ -17,7 +17,6 @@ function DisplayStudents(props) {
       const host = window.location.hostname;
       axios.get("http://" + host + ":4000/studentprofiles")
         .then(res => {
-          console.log(res.data);
           setStudentData(res.data);
         })
         .catch(err => console.error(err));

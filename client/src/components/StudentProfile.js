@@ -18,7 +18,7 @@ function StudentProfile(props) {
   const formRefer = useRef(null);
   const loadBtn = useRef(null);
   
-    useEffect(() => {
+  useEffect(() => {
     const getDataFromAPI = () => {
       const hostname = '/api/studentprofiles';
       axios.get(hostname)
@@ -78,7 +78,7 @@ function StudentProfile(props) {
     }
     const interval = setInterval(getDataFromAPI, 1000);
     return () => clearInterval(interval);
-  }, [id, studentData, loadBtn, isError, setStudentData, setIsError]);
+  }, [id, studentData, loadBtn, isError, formRefer, setStudentData, setIsError]);
 
   const pen = (
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pen" viewBox="0 0 16 16">

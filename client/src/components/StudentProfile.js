@@ -32,8 +32,11 @@ function StudentProfile(props) {
             for (let ii = 0; ii < dt.length; ii++) {
               if (dt[ii]._id === id) {
                 setStudentData(dt[ii]);
-                if (isError)
+                if (isError) {
                   setIsError(false);
+                  onEditBtnClick();
+                  onEditBtnClick();
+                }
                 break;
               }
             }
@@ -74,6 +77,15 @@ function StudentProfile(props) {
       </path>
     </svg>
   );
+
+  const onEditBtnClick = () => {
+    [...formRefer.current].forEach(inp => {
+      if (inp.name && studentData[inp.name]) {
+        inp.value = studentData[inp.name];
+      }
+    });
+    setIsUpdating(!isUpdating);
+  }
 
   const onClickUpdate = (event) => {
     event.preventDefault();
@@ -132,14 +144,7 @@ function StudentProfile(props) {
           <div className="row content bg-dark">
             <div className="container">
               <div className="text-center">
-                <button className="btn border-5 border-light bg-light m-2 text-primary" onClick={(e) => {
-                  [...formRefer.current].forEach(inp => {
-                    if (inp.name && studentData[inp.name]) {
-                      inp.value = studentData[inp.name];
-                    }
-                  });
-                  setIsUpdating(!isUpdating);
-                }}>{pen} {isUpdating ? "Cancel Changes" : "Edit Profile" }</button>
+                <button className="btn border-5 border-light bg-light m-2 text-primary" onClick={onEditBtnClick}>{pen} {isUpdating ? "Cancel Changes" : "Edit Profile" }</button>
               </div>
               {/* form here */}
               <div className="row">

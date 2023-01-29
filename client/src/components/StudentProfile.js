@@ -29,18 +29,22 @@ function StudentProfile(props) {
             if (!isError)
               setIsError(true);
           } else {
-            for (let ii = 0; ii < dt.length; ii++) {
+            for (const ii = 0; ii < dt.length; ii++) {
               if (dt[ii]._id === id) {
                 if (!JSON.stringify(studentData) || (JSON.stringify(studentData) !== JSON.stringify(dt[ii]))) {
                   setStudentData(dt[ii]);
                   if (isError) {
                     setIsError(false);
                   }
-                  [...formRefer.current].forEach(inp => {
-                    if (inp.name && dt[ii][inp.name]) {
-                      inp.value = dt[ii][inp.name];
+                  setTimeout(() => {
+                    if (formRefer.current) {
+                      [...formRefer.current].forEach(inp => {
+                        if (inp.name && dt[ii][inp.name]) {
+                          inp.value = dt[ii][inp.name];
+                        }
+                      });
                     }
-                  });
+                  }, 500);
                 }
                 break;
               }

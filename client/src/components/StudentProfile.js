@@ -47,8 +47,8 @@ function StudentProfile(props) {
                     setIsError(false);
                   }
                   console.log("setted", studentData);
-                  onEditBtnClick();
-                  onEditBtnClick();
+                  setTimeout(onEditBtnClick, 200);
+                  setTimeout(onEditBtnClick, 300);
                 }
                 break;
               }

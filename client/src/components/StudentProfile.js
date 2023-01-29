@@ -61,6 +61,8 @@ function StudentProfile(props) {
             for (let ib = 0; ib < backdrop.length; ib++)  { 
               backdrop[ib].remove();
             }
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = 'auto';
           }
           if (loadBtn.current) {
             loadBtn.current.click();

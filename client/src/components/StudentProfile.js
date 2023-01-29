@@ -115,7 +115,6 @@ function StudentProfile(props) {
             setStudentData({});
             setHasMessage({error: true});
           } else {
-            console.log(response.data);
             setStudentData(Object.assign({}, response.data));
             setHasMessage({success: true});
           }
@@ -156,7 +155,7 @@ function StudentProfile(props) {
                 }}>{pen} {isUpdating ? "Cancel Changes" : "Edit Profile" }</button>
               </div>
               {/* form here */}
-              <div className="row">
+              <div className="row overflow-scroll">
                 <div className="col-md-12">
                   <div className="card">
                     <div className="card-header">

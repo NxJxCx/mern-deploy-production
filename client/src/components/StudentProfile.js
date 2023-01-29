@@ -18,16 +18,7 @@ function StudentProfile(props) {
   const formRefer = useRef(null);
   const loadBtn = useRef(null);
   
-  const onEditBtnClick = () => {
-    [...formRefer.current].forEach(inp => {
-      if (inp.name && studentData[inp.name]) {
-        inp.value = studentData[inp.name];
-      }
-    });
-    setIsUpdating(!isUpdating);
-  }
-
-  useEffect(() => {
+    useEffect(() => {
     const getDataFromAPI = () => {
       const hostname = '/api/studentprofiles';
       axios.get(hostname)
@@ -40,15 +31,16 @@ function StudentProfile(props) {
           } else {
             for (let ii = 0; ii < dt.length; ii++) {
               if (dt[ii]._id === id) {
-                console.log(JSON.stringify(studentData), JSON.stringify(dt[ii]));
                 if (!JSON.stringify(studentData) || (JSON.stringify(studentData) !== JSON.stringify(dt[ii]))) {
                   setStudentData(dt[ii]);
                   if (isError) {
                     setIsError(false);
                   }
-                  console.log("setted", studentData);
-                  setTimeout(onEditBtnClick, 500);
-                  setTimeout(onEditBtnClick, 1000);
+                  [...formRefer.current].forEach(inp => {
+                    if (inp.name && dt[ii][inp.name]) {
+                      inp.value = dt[ii][inp.name];
+                    }
+                  });
                 }
                 break;
               }
@@ -82,7 +74,7 @@ function StudentProfile(props) {
     }
     const interval = setInterval(getDataFromAPI, 1000);
     return () => clearInterval(interval);
-  }, [id, studentData, loadBtn, isError, formRefer, setStudentData, setIsError, onEditBtnClick]);
+  }, [id, studentData, loadBtn, isError, setStudentData, setIsError]);
 
   const pen = (
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pen" viewBox="0 0 16 16">
@@ -90,6 +82,15 @@ function StudentProfile(props) {
       </path>
     </svg>
   );
+  
+  const onEditBtnClick = () => {
+    [...formRefer.current].forEach(inp => {
+      if (inp.name && studentData[inp.name]) {
+        inp.value = studentData[inp.name];
+      }
+    });
+    setIsUpdating(!isUpdating);
+  }
 
   const onClickUpdate = (event) => {
     event.preventDefault();

@@ -10,7 +10,7 @@ function Header(props) {
   }
 
   return (
-    <header className="navbar-top bg-light">
+    <header className="navbar-top bg-light header">
         <nav className="navbar navbar-light">
           <div className="navbar-brand">
             <a href="/">

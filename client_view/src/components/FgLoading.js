@@ -1,15 +1,14 @@
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 function FgLoading(props) {
-  const [showModal, setShowModal] = useState(false);
   const openRef = useRef(null);
   useEffect(() => {
     if (openRef.current && !openRef.current.dataset.isopen && props.isOpen) {
       openRef.current.click();
       openRef.current.dataset.isopen = true;
     } 
-  }, [showModal, setShowModal, openRef, props.isOpen]);
+  }, [openRef, props.isOpen]);
   
   return (
     <div className="modal" id="submitLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="submitLoadingLabel" aria-hidden="true">

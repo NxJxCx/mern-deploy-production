@@ -18,6 +18,15 @@ function StudentProfile(props) {
   const formRefer = useRef(null);
   const loadBtn = useRef(null);
   
+  const onEditBtnClick = () => {
+    [...formRefer.current].forEach(inp => {
+      if (inp.name && studentData[inp.name]) {
+        inp.value = studentData[inp.name];
+      }
+    });
+    setIsUpdating(!isUpdating);
+  }
+
   useEffect(() => {
     const getDataFromAPI = () => {
       const hostname = '/api/studentprofiles';
@@ -71,7 +80,7 @@ function StudentProfile(props) {
     }
     const interval = setInterval(getDataFromAPI, 1000);
     return () => clearInterval(interval);
-  }, [id, studentData, loadBtn, isError, setStudentData, setIsError]);
+  }, [id, studentData, loadBtn, isError, setStudentData, setIsError, onEditBtnClick]);
 
   const pen = (
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pen" viewBox="0 0 16 16">
@@ -79,15 +88,6 @@ function StudentProfile(props) {
       </path>
     </svg>
   );
-
-  const onEditBtnClick = () => {
-    [...formRefer.current].forEach(inp => {
-      if (inp.name && studentData[inp.name]) {
-        inp.value = studentData[inp.name];
-      }
-    });
-    setIsUpdating(!isUpdating);
-  }
 
   const onClickUpdate = (event) => {
     event.preventDefault();

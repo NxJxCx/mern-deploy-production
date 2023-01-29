@@ -13,17 +13,22 @@ function DisplayStudents(props) {
   const [toasters, setToasters] = useState([]);
 
   useEffect(() => {
-    const host = window.location.hostname;
-    axios.get("http://" + host + ":4000/studentprofiles")
-   .then(res => {
-        setStudentData(res.data);
-      })
-   .catch(err => console.error(err));
+    const interval = setInterval(() => {
+      const host = window.location.hostname;
+      axios.get("http://" + host + ":4000/studentprofiles")
+        .then(res => {
+          console.log(res.data);
+          setStudentData(res.data);
+        })
+        .catch(err => console.error(err));
+    }, 2000);
+    return () => clearInterval(interval);
   });
-
-  const onGetStudentData = (data) => {
+  
+  
+  const onGetStudentData = () => {
     let tdata = [];
-    data.forEach((it, i) => {
+    studentData.forEach((it, i) => {
       tdata.push(<TableDataStudents key={i} data={it} index={i+1} setSelected={setSelected} />);
       return it;
     });
@@ -71,7 +76,7 @@ function DisplayStudents(props) {
                         </tr>
                       </thead>
                       <tbody>
-                        {onGetStudentData(studentData)}
+                        {onGetStudentData()}
                       </tbody>
                     </table>
                   </div>
